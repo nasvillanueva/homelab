@@ -15,7 +15,7 @@ spec:
   source:
     repoURL: https://traefik.github.io/charts
     chart: whoami
-    targetRevision: 1.0.0
+    targetRevision: "*"
 
   syncPolicy:
     automated:
