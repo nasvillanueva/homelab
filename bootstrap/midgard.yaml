@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: midgard
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: clusters/midgard
+    repoURL: git@github.com:nasvillanueva/homelab.git
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
