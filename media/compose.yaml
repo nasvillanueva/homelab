@@ -26,8 +26,7 @@ services:
     restart: unless-stopped
     network_mode: "service:gluetun"
     depends_on:
-      gluetun:
-        condition: service_healthy
+      - gluetun
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -49,8 +48,7 @@ services:
     restart: unless-stopped
     network_mode: "service:gluetun"
     depends_on:
-      gluetun:
-        condition: service_healthy
+      - gluetun
     stdin_open: true
     tty: true
     volumes:
@@ -130,7 +128,7 @@ services:
       TZ: ${TZ}
       LOG_LEVEL: info
     volumes:
-      - ${HOMELAB_DATA_DIR}/seerr:/config
+      - ${HOMELAB_DATA_DIR}/seerr:/app/config
     extra_hosts:
       - "host.docker.internal:host-gateway"
     networks:
