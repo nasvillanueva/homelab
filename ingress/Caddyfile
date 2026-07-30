@@ -1,0 +1,35 @@
+(cloudflare_tls) {
+	tls {
+		dns cloudflare {$CLOUDFLARE_API_TOKEN}
+	}
+}
+
+sonarr.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy media-sonarr:8989
+}
+
+radarr.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy media-radarr:7878
+}
+
+prowlarr.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy media-prowlarr:9696
+}
+
+seerr.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy media-seerr:5055
+}
+
+qbt.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy media-qbt:8080
+}
+
+jellyfin.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy host.docker.internal:8096
+}

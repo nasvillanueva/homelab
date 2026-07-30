@@ -15,7 +15,10 @@ services:
     volumes:
       - ${HOMELAB_DATA_DIR}/gluetun:/gluetun
     networks:
-      - media
+      media:
+      gateway:
+        aliases:
+          - media-qbt
     deploy:
       resources:
         limits:
@@ -69,7 +72,10 @@ services:
       - ${MEDIA_DIR}:/data/media
       - ${DOWNLOADS_DIR}:/data/torrents
     networks:
-      - media
+      media:
+      gateway:
+        aliases:
+          - media-sonarr
     deploy:
       resources:
         limits:
@@ -86,7 +92,10 @@ services:
       - ${MEDIA_DIR}:/data/media
       - ${DOWNLOADS_DIR}:/data/torrents
     networks:
-      - media
+      media:
+      gateway:
+        aliases:
+          - media-radarr
     deploy:
       resources:
         limits:
@@ -101,7 +110,10 @@ services:
     volumes:
       - ${HOMELAB_DATA_DIR}/prowlarr:/config
     networks:
-      - media
+      media:
+      gateway:
+        aliases:
+          - media-prowlarr
     deploy:
       resources:
         limits:
@@ -129,10 +141,11 @@ services:
       LOG_LEVEL: info
     volumes:
       - ${HOMELAB_DATA_DIR}/seerr:/app/config
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     networks:
-      - media
+      media:
+      gateway:
+        aliases:
+          - media-seerr
     deploy:
       resources:
         limits:
@@ -141,3 +154,7 @@ services:
 networks:
   media:
     name: homelab_media
+
+  gateway:
+    name: homelab_gateway
+    external: true
