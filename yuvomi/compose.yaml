@@ -5,7 +5,7 @@ services:
     image: ghcr.io/ulsklyc/yuvomi:latest
     restart: unless-stopped
     env_file:
-      - ./.env
+      - ${HOMELAB_SECRETS_DIR}/yuvomi.env
     volumes:
       - ${HOMELAB_CONFIG_DIR}/yuvomi/data:/data
       - ${HOMELAB_CONFIG_DIR}/yuvomi/backups:/backups

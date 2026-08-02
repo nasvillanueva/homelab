@@ -1,8 +1,8 @@
 .env
-**/.env
-**/*.env
+secrets/*
 
+# Allow allow safe files
 !**/*.env.example
-!.env.example
+!secrets/.gitkeep
 
 .DS_Store
