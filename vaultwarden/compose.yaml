@@ -1,0 +1,20 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    env_file:
+      - ${HOMELAB_SECRETS_DIR}/vaultwarden.env
+
+    volumes:
+      - ${HOMELAB_CONFIG_DIR}/vaultwarden:/data
+    networks:
+      - gateway
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+networks:
+  gateway:
+    external: true
+    name: homelab_gateway

@@ -16,6 +16,9 @@ ingress *args:
 yuvomi *args:
   just compose yuvomi {{args}}
 
+vaultwarden *args:
+  just compose vaultwarden {{args}}
+
 restic *args:
   ./scripts/restic {{args}}
 

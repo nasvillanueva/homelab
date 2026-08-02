@@ -38,3 +38,8 @@ bahay.{$HOMELAB_DOMAIN} {
 	import cloudflare_tls
 	reverse_proxy yuvomi:3000
 }
+
+baul.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy vaultwarden:80
+}
