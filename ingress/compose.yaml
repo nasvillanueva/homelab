@@ -15,8 +15,8 @@ services:
       - 443:443/udp
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - ${HOMELAB_DATA_DIR}/caddy/data:/data
-      - ${HOMELAB_DATA_DIR}/caddy/config:/config
+      - ${HOMELAB_CONFIG_DIR}/caddy/data:/data
+      - ${HOMELAB_CONFIG_DIR}/caddy/config:/config
     networks:
       - gateway
     deploy:
