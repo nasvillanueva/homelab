@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+dry_run=false
+
+if [[ "${1:-}" == "--dry-run" ]]; then
+  dry_run=true
+  shift
+fi
+
+if [[ $# -ne 2 ]]; then
+  print -u2 "Usage: restore [--dry-run] <service> <restore-root>"
+  exit 1
+fi
+
+service="$1"
+restore_root="$2"
+
+source_dir="${restore_root}${HOMELAB_CONFIG_DIR}/${service}"
+destination_dir="${HOMELAB_CONFIG_DIR}/${service}"
+
+if [[ ! -d "$source_dir" ]]; then
+  print -u2 "Restored directory not found:"
+  print -u2 "  $source_dir"
+  exit 1
+fi
+
+rsync_flags=(-aHvi)
+
+if $dry_run; then
+  rsync_flags+=(-n)
+  print "Dry run: no files will be changed."
+fi
+
+print "Syncing:"
+print "  $source_dir/"
+print "  → $destination_dir/"
+
+rsync "${rsync_flags[@]}" \
+  "$source_dir/" \
+  "$destination_dir/"
+
+print "Restore $service successful. You can safely delete $source_dir or $restore_root"

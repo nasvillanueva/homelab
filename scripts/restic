@@ -1,0 +1,58 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+required_variables=(
+  HOMELAB_CONFIG_DIR
+  HOMELAB_SECRETS_DIR
+  RESTIC_REPOSITORY
+  RESTIC_PASSWORD_FILE
+)
+
+for variable in "${required_variables[@]}"; do
+  if [[ -z "${(P)variable:-}" ]]; then
+    print -u2 "Missing required environment variable: $variable"
+    exit 1
+  fi
+done
+
+initialize_repository() {
+  if [[ ! -f "$RESTIC_REPOSITORY/config" ]]; then
+    print "Initializing Restic repository at:"
+    print "  $RESTIC_REPOSITORY"
+
+    mkdir -p "$RESTIC_REPOSITORY"
+    restic init
+  fi
+}
+
+run_backup() {
+  initialize_repository
+
+  print "Backing up:"
+  print "  $HOMELAB_CONFIG_DIR"
+  print "  $HOMELAB_SECRETS_DIR"
+
+  restic backup \
+    "$HOMELAB_CONFIG_DIR" \
+    "$HOMELAB_SECRETS_DIR"
+
+  print "Applying snapshot retention policy..."
+
+  restic forget \
+    --keep-daily 7 \
+    --keep-weekly 4 \
+    --keep-monthly 12 \
+    --prune
+
+  print "Backup completed."
+}
+
+case "${1:-backup}" in
+  backup)
+    run_backup
+    ;;
+
+  *)
+    exec restic "$@"
+    ;;
+esac
