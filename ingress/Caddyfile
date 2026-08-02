@@ -33,3 +33,8 @@ jellyfin.{$HOMELAB_DOMAIN} {
 	import cloudflare_tls
 	reverse_proxy host.docker.internal:8096
 }
+
+bahay.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy yuvomi:3000
+}

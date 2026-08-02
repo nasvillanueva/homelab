@@ -1,0 +1,29 @@
+name: homelab-yuvomi
+
+services:
+  yuvomi:
+    image: ghcr.io/ulsklyc/yuvomi:latest
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    volumes:
+      - ${HOMELAB_CONFIG_DIR}/yuvomi/data:/data
+      - ${HOMELAB_CONFIG_DIR}/yuvomi/backups:/backups
+      - ${HOMELAB_CONFIG_DIR}/yuvomi/documents:/documents
+      - ${HOMELAB_CONFIG_DIR}/yuvomi/modules:/app/modules
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', r => process.exit(r.statusCode === 200 ? 0 : 1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - gateway
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+networks:
+  gateway:
+    name: homelab_gateway
+    external: true

@@ -11,3 +11,6 @@ media *args:
 
 ingress *args:
   just compose ingress {{args}}
+
+yuvomi *args:
+  just compose yuvomi {{args}}
