@@ -1,0 +1,19 @@
+name: homelab-sumika
+
+services:
+  sumika:
+    build: ${HOMELAB_APPS_ROOT}/sumika
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+    networks:
+      - gateway
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+networks:
+  gateway:
+    name: homelab_gateway
+    external: true

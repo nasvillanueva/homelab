@@ -19,6 +19,9 @@ yuvomi *args:
 vaultwarden *args:
   just compose vaultwarden {{args}}
 
+sumika *args:
+  just compose sumika {{args}}
+
 restic *args:
   ./scripts/restic {{args}}
 

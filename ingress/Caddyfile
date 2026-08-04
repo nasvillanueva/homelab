@@ -43,3 +43,8 @@ baul.{$HOMELAB_DOMAIN} {
 	import cloudflare_tls
 	reverse_proxy vaultwarden:80
 }
+
+sumika.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy sumika:80
+}
