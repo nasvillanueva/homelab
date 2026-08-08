@@ -1,3 +1,5 @@
+name: homelab-vaultwarden
+
 services:
   vaultwarden:
     image: vaultwarden/server:latest
