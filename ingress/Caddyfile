@@ -48,3 +48,8 @@ sumika.{$HOMELAB_DOMAIN} {
 	import cloudflare_tls
 	reverse_proxy sumika:80
 }
+
+monitoring.{$HOMELAB_DOMAIN} {
+	import cloudflare_tls
+	reverse_proxy beszel:8090
+}

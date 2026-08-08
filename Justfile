@@ -22,6 +22,9 @@ vaultwarden *args:
 sumika *args:
   just compose sumika {{args}}
 
+monitoring *args:
+  just compose monitoring {{args}}
+
 restic *args:
   ./scripts/restic {{args}}
 

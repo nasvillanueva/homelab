@@ -1,0 +1,22 @@
+name: homelab-monitoring
+
+services:
+  beszel:
+    image: henrygd/beszel:latest
+    restart: unless-stopped
+    ports:
+      - 8090:8090
+    volumes:
+      - ${HOMELAB_CONFIG_DIR}/beszel/hub:/beszel_data
+    networks:
+      - gateway
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+
+networks:
+  gateway:
+    name: homelab_gateway
+    external: true
